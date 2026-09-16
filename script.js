@@ -122,7 +122,6 @@ document.addEventListener(
 updateNavigation();
 
 
-
 /* =========================
    PHOTO VIEWER
 ========================= */
@@ -245,7 +244,6 @@ document.addEventListener(
 );
 
 
-
 /* =========================
    ENVELOPE
 ========================= */
@@ -272,6 +270,10 @@ envelope.addEventListener(
       envelope.classList.contains("open");
 
 
+    /* =====================
+       OPEN
+    ====================== */
+
     if (!isOpen) {
 
       envelope
@@ -294,6 +296,11 @@ envelope.addEventListener(
 
     }
 
+
+    /* =====================
+       CLOSE
+    ====================== */
+
     else {
 
       envelope
@@ -311,61 +318,3 @@ envelope.addEventListener(
 
   }
 );
-
-
-
-/* =========================
-   MOBILE POEM PROTECTION
-========================= */
-
-/*
-   IMPORTANT:
-
-   The scrapbook uses touch gestures,
-   but the poem needs vertical scrolling.
-
-   If the finger starts inside the poem,
-   we allow the phone to scroll normally
-   instead of treating the movement as
-   a scrapbook page flip.
-*/
-
-const poemScroll =
-  document.querySelector(".poem-scroll");
-
-
-if (poemScroll) {
-
-  poemScroll.addEventListener(
-    "touchstart",
-    function(event) {
-
-      event.stopPropagation();
-
-    },
-    { passive: true }
-  );
-
-
-  poemScroll.addEventListener(
-    "touchmove",
-    function(event) {
-
-      event.stopPropagation();
-
-    },
-    { passive: true }
-  );
-
-
-  poemScroll.addEventListener(
-    "touchend",
-    function(event) {
-
-      event.stopPropagation();
-
-    },
-    { passive: true }
-  );
-
-}
