@@ -100,12 +100,6 @@ document.addEventListener(
   "keydown",
   function(event) {
 
-    /*
-      Don't flip scrapbook pages
-      while typing inside an input
-      or textarea.
-    */
-
     if (
       event.target.tagName === "INPUT" ||
       event.target.tagName === "TEXTAREA"
@@ -113,11 +107,9 @@ document.addEventListener(
       return;
     }
 
-
     if (event.key === "ArrowRight") {
       nextPage();
     }
-
 
     if (event.key === "ArrowLeft") {
       previousPage();
@@ -167,24 +159,19 @@ downloadablePhotos.forEach(
         const image =
           photo.dataset.image;
 
-
         expandedPhoto.src =
           image;
 
-
         savePhoto.href =
           image;
-
 
         const fileName =
           image
             .split("/")
             .pop();
 
-
         savePhoto.download =
           fileName;
-
 
         photoModal
           .classList
@@ -285,20 +272,14 @@ envelope.addEventListener(
       envelope.classList.contains("open");
 
 
-    /* =====================
-       OPEN
-    ====================== */
-
     if (!isOpen) {
 
       envelope
         .classList
         .add("open");
 
-
       envelopeHint.textContent =
         "♡ surprise ♡";
-
 
       setTimeout(
         function() {
@@ -313,21 +294,14 @@ envelope.addEventListener(
 
     }
 
-
-    /* =====================
-       CLOSE
-    ====================== */
-
     else {
 
       envelope
         .classList
         .remove("open");
 
-
       envelopeHint.textContent =
         "click me :)";
-
 
       giftMessage
         .classList
@@ -337,3 +311,61 @@ envelope.addEventListener(
 
   }
 );
+
+
+
+/* =========================
+   MOBILE POEM PROTECTION
+========================= */
+
+/*
+   IMPORTANT:
+
+   The scrapbook uses touch gestures,
+   but the poem needs vertical scrolling.
+
+   If the finger starts inside the poem,
+   we allow the phone to scroll normally
+   instead of treating the movement as
+   a scrapbook page flip.
+*/
+
+const poemScroll =
+  document.querySelector(".poem-scroll");
+
+
+if (poemScroll) {
+
+  poemScroll.addEventListener(
+    "touchstart",
+    function(event) {
+
+      event.stopPropagation();
+
+    },
+    { passive: true }
+  );
+
+
+  poemScroll.addEventListener(
+    "touchmove",
+    function(event) {
+
+      event.stopPropagation();
+
+    },
+    { passive: true }
+  );
+
+
+  poemScroll.addEventListener(
+    "touchend",
+    function(event) {
+
+      event.stopPropagation();
+
+    },
+    { passive: true }
+  );
+
+}
